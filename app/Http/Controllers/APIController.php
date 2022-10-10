@@ -30,6 +30,7 @@ public function crearCandidato(Request $request)
 
         return response()->json([
             'success'   =>  true,
+            'errors' =>[],
             'data'      =>  $candidatos
         ], 200);
     }
@@ -40,6 +41,7 @@ public function crearCandidato(Request $request)
 
         return response()->json([
             'success'   =>  true,
+            'errors' =>[],
             'data'      =>  $candidatos
         ], 200);
     }
@@ -50,6 +52,7 @@ public function crearCandidato(Request $request)
 
         return response()->json([
             'success'   =>  true,
+            'errors' =>[],
             'data'      =>  $candidatos
         ], 200);
     }

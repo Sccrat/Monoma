@@ -34,7 +34,12 @@ class AuthController extends Controller
             return $this->respondWithToken($token);
         }
 
-        return response()->json(['error' => 'Unauthorized'], 401);
+        return response()->json(["meta"=>[
+        "success"=> false,
+        "errors"=> [
+            "Password incorrect"
+        ]
+        ]], 401);
     }
 
     public function register(Request $request)
@@ -52,6 +57,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success'   =>  true,
+            'errors' =>[],
             'data'      =>  $user
         ], 200);
     }
@@ -98,9 +104,17 @@ class AuthController extends Controller
     protected function respondWithToken($token)
     {
         return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => $this->guard()->factory()->getTTL() * 60
+            // 'access_token' => $token,
+            // 'token_type' => 'bearer',
+            // 'expires_in' => $this->guard()->factory()->getTTL() * 24,
+            "meta"=> [
+                "success"=> true,
+                "errors"=> []
+            ],
+            "data"=> [
+                "token"=> $token,
+                "minutes_to_expire"=> $this->guard()->factory()->getTTL() * 24
+            ]
         ]);
     }
 
