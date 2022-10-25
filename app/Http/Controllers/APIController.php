@@ -7,6 +7,7 @@ use App\Candidatos;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Requests\RegistrationFormRequest;
+use Illuminate\Support\Facades\Redis;
 
 class APIController extends Controller
 {
@@ -20,7 +21,7 @@ class APIController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-public function crearCandidato(Request $request)
+    public function Createlead(Request $request)
     {
         $candidatos = new Candidatos();
         $candidatos->name = $request->name;
@@ -30,31 +31,34 @@ public function crearCandidato(Request $request)
 
         return response()->json([
             'success'   =>  true,
-            'errors' =>[],
+            'errors' => [],
             'data'      =>  $candidatos
         ], 200);
     }
 
-    public function consultarCandidato($id)
+    public function lead($id)
     {
         $candidatos = Candidatos::find($id);
 
         return response()->json([
-            'success'   =>  true,
-            'errors' =>[],
-            'data'      =>  $candidatos
+            'success' =>  true,
+            'errors' => [],
+            'data'   =>  $candidatos
         ], 200);
     }
 
-    public function consultarTodos()
+    public function Allleads()
     {
-        $candidatos = Candidatos::all();
+        $candidatos = cache('leads', function () {
+            return Candidatos::all();
+        });
+
+        // $candidatos = Candidatos::all();
 
         return response()->json([
             'success'   =>  true,
-            'errors' =>[],
+            'errors' => [],
             'data'      =>  $candidatos
         ], 200);
     }
-
 }

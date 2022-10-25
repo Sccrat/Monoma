@@ -15,17 +15,16 @@ use Illuminate\Http\Request;
 
 $api = app('Dingo\Api\Routing\Router');
 
- 
 
-$api->version('v1',['namespace' => 'App\Http\Controllers'], function ($api) {
-    $api->group(['middleware' => 'api.auth'], function ($api){
 
-        $api->post('crearCandidato', 'APIController@crearCandidato');
-        $api->get('consultarCandidato/{id}', 'APIController@consultarCandidato');
-        $api->get('consultarTodos', 'APIController@consultarTodos');
+$api->version('v1', ['namespace' => 'App\Http\Controllers'], function ($api) {
+    $api->group(['middleware' => 'api.auth'], function ($api) {
 
+        $api->post('Createlead', 'APIController@Createlead');
+        $api->get('lead/{id}', 'APIController@lead');
+        $api->get('Allleads', 'APIController@Allleads');
     });
 
-   $api->post('login', 'AuthController@login');
-   $api->post('register', 'AuthController@register');
+    $api->post('login', 'AuthController@login');
+    $api->post('register', 'AuthController@register');
 });
