@@ -1,17 +1,23 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Traits;
 
-use PHPUnit\Framework\TestCase;
-
-class UserTest extends TestCase
+/**
+ * Trait ApiMethodsTrait para implementacion de metodos de API en las clases Tests de CRUDS.
+ * Este Trait es usado por las clases de Test, que utilizarán los methodos
+ * para hacer solicitudes Http a la API.
+ *
+ * @author(s) Juan Pablo Patiño - Yerson Danian Morales Rivera
+ */
+trait ApiMethodsTrait
 {
-
     protected $apiVersion = 'api/';
+
     /**
-     * A basic unit test example.
-     *
-     * @return void
+     * @method doPost
+     * @param string $url
+     * @param array $data
+     * @return mixed Respuesta de la solicitud a la API
      */
     public function doPost(string $url, array $data, array $request = [])
     {
